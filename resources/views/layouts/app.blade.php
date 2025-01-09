@@ -23,7 +23,6 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Bar & Pizzeria Management
                 </a>
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -31,7 +30,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        @auth
+                            <!-- Link alle sezioni CRUD -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('employees.index') }}">Gestione Team</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Gestione Pizze</a>
+                            </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

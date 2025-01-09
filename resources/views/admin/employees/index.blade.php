@@ -8,7 +8,6 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nome</th>
                 <th>Ruolo</th>
                 <th>Email</th>
@@ -18,26 +17,47 @@
         <tbody>
             @forelse ($employees as $employee)
                 <tr>
-                    <td>{{ $employee->id }}</td>
                     <td>{{ $employee->name }}</td>
                     <td>{{ $employee->role }}</td>
                     <td>{{ $employee->email }}</td>
                     <td>
                         <a href="{{ route('employees.show', $employee) }}" class="btn btn-info btn-sm">Visualizza</a>
                         <a href="{{ route('employees.edit', $employee) }}" class="btn btn-warning btn-sm">Modifica</a>
-                        <form action="{{ route('employees.destroy', $employee) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
-                        </form>
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $employee->id }}">
+                            Elimina
+                        </button>
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5" class="text-center">Nessun dipendente trovato.</td>
+                    <td colspan="4" class="text-center">Nessun dipendente trovato.</td>
                 </tr>
             @endforelse
         </tbody>
     </table>
 </div>
+
+<!-- Modale di conferma eliminazione -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Conferma Eliminazione</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Sei sicuro di voler eliminare questo dipendente? Questa azione è irreversibile.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                <form id="deleteForm" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Elimina</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+

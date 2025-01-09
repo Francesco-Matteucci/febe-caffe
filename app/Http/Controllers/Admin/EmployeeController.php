@@ -9,59 +9,81 @@ use Illuminate\Http\Request;
 class EmployeeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Mostra la lista di tutti i dipendenti.
      */
     public function index()
     {
-        $employees = Employee::all();
+        $employees = Employee::whereNull('deleted_at')->get();
         return view('admin.employees.index', compact('employees'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostra il form per creare un nuovo dipendente.
      */
     public function create()
     {
-        //
+        $roles = ['Banconista', 'Reparto Pizze', 'Supervisore'];
+        return view('admin.employees.create', compact('roles'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Salva un nuovo dipendente nel database.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'role' => 'required|string|in:Banconista,Reparto Pizze,Supervisore',
+            'email' => 'required|email|unique:employees,email',
+            'phone' => 'nullable|string|max:20',
+        ]);
+
+        Employee::create($request->all());
+
+        return redirect()->route('employees.index')->with('success', 'Dipendente aggiunto con successo.');
     }
 
     /**
-     * Display the specified resource.
+     * Mostra i dettagli di un singolo dipendente.
      */
-    public function show(string $id)
+    public function show(Employee $employee)
     {
-        //
+        return view('admin.employees.show', compact('employee'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Mostra il form per modificare un dipendente esistente.
      */
-    public function edit(string $id)
+    public function edit(Employee $employee)
     {
-        //
+        $roles = ['Banconista', 'Reparto Pizze', 'Supervisore'];
+        return view('admin.employees.edit', compact('employee', 'roles'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Aggiorna i dati di un dipendente esistente nel database.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Employee $employee)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'role' => 'required|string|in:Banconista,Reparto Pizze,Supervisore',
+            'email' => 'required|email|unique:employees,email,' . $employee->id,
+            'phone' => 'nullable|string|max:20',
+        ]);
+
+        $employee->update($request->all());
+
+        return redirect()->route('employees.index')->with('success', 'Dipendente aggiornato con successo.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina (soft delete) un dipendente dal database.
      */
-    public function destroy(string $id)
+    public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+
+        return redirect()->route('employees.index')->with('success', 'Dipendente eliminato con successo.');
     }
 }
