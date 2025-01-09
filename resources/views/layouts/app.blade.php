@@ -36,7 +36,7 @@
                                 <a class="nav-link" href="{{ route('employees.index') }}">Gestione Team</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Gestione Pizze</a>
+                                <a class="nav-link" href="{{ route('pizzas.index') }}">Gestione Pizze</a>
                             </li>
                         @endauth
                     </ul>
