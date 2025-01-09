@@ -5,11 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header text-center">{{ __('Bar Management System') }}</div>
+                <div class="card-header text-center">{{ __('Gestionale del bar Febe') }}</div>
 
                 <div class="card-body text-center">
-                    <h4>{{ __('Welcome to the Management Dashboard') }}</h4>
-                    <p>{{ __('Here you can manage your team, update the menu, and keep track of everything related to your bar and pizzeria.') }}</p>
+                    <h4>{{ __('Benvenuto nella Dashboard del Bar Febe') }}</h4>
+                    <p>{{ __('Qui puoi gestire il tuo team, aggiornare il menu e tenere traccia di tutto ciò che riguarda il tuo bar e pizzeria.') }}</p>
                 </div>
             </div>
         </div>
