@@ -18,8 +18,11 @@
             <label for="price" class="form-label">Prezzo</label>
             <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ $pizza->price }}" required>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="is_available" name="is_available" value="1" {{ $pizza->is_available ? 'checked' : '' }}>
+        <div class="form-check mb-3">
+            <!-- Campo nascosto per gestire il caso in cui la checkbox non sia selezionata -->
+            <input type="hidden" name="is_available" value="0">
+            <input class="form-check-input" type="checkbox" id="is_available" name="is_available" value="1"
+                @if ($pizza->is_available) checked @endif>
             <label class="form-check-label" for="is_available">Disponibile</label>
         </div>
         <div class="mb-3">

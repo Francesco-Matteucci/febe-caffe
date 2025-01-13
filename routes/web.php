@@ -14,3 +14,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('admin/employees', EmployeeController::class);
 
 Route::resource('admin/pizzas', PizzaController::class);
+
+Route::post('admin/pizzas/{pizza}/toggle', [PizzaController::class, 'toggleAvailability'])->name('pizzas.toggle');
