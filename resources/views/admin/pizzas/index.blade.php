@@ -11,8 +11,8 @@
 
     @if ($pizzas->count() > 0)
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="text-black">Gestione del Menu Pizze</h1>
-            <h1 class="text-black">Pizze trovate: {{ $pizzas->count() }}</h1>
+            <h1 class="text-white">Gestione del Menu Pizze</h1>
+            <h1 class="text-white">Pizze trovate: {{ $pizzas->count() }}</h1>
         </div>
 
         <div class="card bg-dark text-white">
@@ -35,10 +35,10 @@
                             @foreach ($pizzas as $pizza)
                                 <tr>
                                     <!-- Immagine ridimensionata -->
-                                    <td class="text-center" style="width: 120px;">
+                                    <td class="text-center" style="max-width: 120px">
                                         @if ($pizza->image)
                                             <img src="{{ asset('storage/' . $pizza->image) }}" alt="{{ $pizza->name }}"
-                                                class="img rounded" style="max-width: 100px; height: auto;">
+                                                class="img rounded" style="max-width: 100px; min-width:80px; height: auto;">
                                         @else
                                             <span class="text-muted">Nessuna immagine</span>
                                         @endif
